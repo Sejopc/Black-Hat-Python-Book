@@ -118,7 +118,7 @@ def client_sender(buffer):
 									# until there is no more data to receive
 					break # will break out from the inner while loop (while recv_len:)
 			#print("Inner loop exited")
-			print response, # if we put a comma "," at the end of print statement, it wont create a new line, so the raw_input() method will allows us to
+			print response # if we put a comma "," at the end of print statement, it wont create a new line, so the raw_input() method will allows us to
 							# input data next to the "response"
 
 			# wait for more input from the user
