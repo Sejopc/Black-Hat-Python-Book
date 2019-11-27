@@ -10,6 +10,7 @@ host = "192.168.100.8" # IP of our MacBook Pro Machine
 # our IP header
 class IP(Structure): # Class Structure comes from ctypes module. Our IP class is inheriting from Structure class now.
     _fields_ = [
+
         ("ihl",         c_ubyte, 4), #ubyte == char in C
         ("version",     c_ubyte, 4),
         ("tos",         c_ubyte),
@@ -54,6 +55,21 @@ class IP(Structure): # Class Structure comes from ctypes module. Our IP class is
         except: # If it's not ICMP, TCP nor UDP protocols
             self.protocol = str(self.protocol_num)
 
+class ICMP (Structure):
+    _fields_ = [
+        ("type",         c_ubyte), #ubyte == char in C
+        ("code",         c_ubyte),
+        ("checksum",     c_ushort),
+        ("unused",       c_ushort),
+        ("next_hop_mtu", c_ushort)
+    ]
+
+    def __new__(self, socket_buffer):
+        return self.from_buffer_copy(socket_buffer)
+
+    def __init__(self, socket_buffer):
+        pass
+
 
 if os.name == "nt":
     socket_protocol = socket.IPPROTO_IP # Windows
@@ -77,6 +93,32 @@ try:
 
         # print out the protocol that was detected and the hosts
         print "Protocol: %s %s -> %s" % (ip_header.protocol, ip_header.src_address, ip_header.dst_address)
+
+        # if it's ICMP, we want it:
+        if ip_header.protocol == "ICMP": # If we receive ICMP Echo Reply Message
+
+            # calculate where our ICMP packet starts
+            # print "Internet Header Lenght -> %s" % ip_header.ihl
+            offset = ip_header.ihl * 4  
+            # To understand this, read what is the Internet Header Length (IHL):
+            #
+            # The Internet Header Length (IHL) field has 4 bits, which is the number of 32-bit words (4-byte chunks). Since an IPv4 header may contain a variable number of options, 
+            # this field specifies the size of the header (this also coincides with the offset to the data). The minimum value for this field is 5, which indicates a 
+            # length of 5 x 32 bits = 160 bits = 20 bytes. As a 4-bit field, the maximum value is 15 words (15 x 32 bits, or 480 bits = 60 bytes).
+
+            # By default IHL is 5 ( in this case too ) without any Option on the IP header. So were, we are multiplying 5 * 4 = 20, which will be the read as 20 bytes offset to the raw_buffer below.
+            # It is actually a trick to multiply this by 4, because the default number 5 of IHL header already means 20 bytes (5 x 32 bits = 160 bits = 20 bytes), but since the number 20 is not in the IHL
+            # we need to convert it to 20 (5 * 4) so the program understands that we want to read the buffer from the byte 20th ahead (meaning starting if ICMP packet).
+
+            buf = raw_buffer[offset:offset + sizeof(ICMP)] # sizeof() / getsizeof() method determines the size of an object in bytes.
+            # in other words:
+            # buf = raw_buffer[20: 20 + size in bytes of ICMP object (really ICMP Header) based on the _fields_ we have specified]
+
+            # create our ICMP structure
+            icmp_header = ICMP(buf)
+
+            print "ICMP -> Type: %d Code: %d" % (icmp_header.type, icmp_header.code)
+
 # handle Ctrl-C
 except KeyboardInterrupt:
     # if we're using Windows, turn off promiscous mode

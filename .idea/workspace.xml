@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0657e22f-b4ef-4782-8592-0fd38d6b67d9" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/Chapter 3/Chap3_sniffer_ip_header_decode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chapter 2/Chap2_Replacing_Netcat.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chapter 2/Chap2_Replacing_Netcat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chapter 3/Chap3_sniffer_ip_header_decode.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chapter 3/Chap3_sniffer_ip_header_decode.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -78,8 +76,17 @@
       <file leaf-file-name="Chap3_simple_raw_socket_sniffer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Chapter 3/Chap3_simple_raw_socket_sniffer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+            <state>
+              <caret column="13" lean-forward="true" selection-start-column="13" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Chap3_sniffer_ip_header_decode.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Chapter 3/Chap3_sniffer_ip_header_decode.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="43">
+              <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -87,9 +94,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Chap3_sniffer_ip_header_decode.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Chapter 3/Chap3_sniffer_ip_header_decode.py">
-          <provider selected="true" editor-type-id="text-editor" />
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ctypes/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="268">
+              <caret line="196" column="26" selection-start-line="196" selection-start-column="21" selection-end-line="196" selection-end-column="26" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file leaf-file-name="Chap2_SSH_Reverse_paramiko.py" pinned="false" current-in-tab="false">
@@ -118,6 +129,12 @@
       <find>client</find>
       <find>chan</find>
       <find>os</find>
+      <find>_fields</find>
+      <find>from_buffer_copy</find>
+      <find>__new__</find>
+      <find>Structure</find>
+      <find>protocol_num</find>
+      <find>CData</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -137,7 +154,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1791" />
+    <option name="x" value="-1792" />
     <option name="y" value="52" />
     <option name="width" value="1680" />
     <option name="height" value="974" />
@@ -195,7 +212,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1791" y="52" width="1680" height="974" extended-state="0" />
+    <frame x="-1792" y="52" width="1680" height="974" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2079566" />
@@ -369,18 +386,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ctypes/test/test_init.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2018.1/python_stubs/-1670992402/_ctypes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="505">
+          <caret line="218" column="13" selection-start-line="218" selection-start-column="13" selection-end-line="218" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ctypes/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="196" column="26" selection-start-line="196" selection-start-column="21" selection-end-line="196" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Chapter 3/Chap3_simple_raw_socket_sniffer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        <state>
+          <caret column="13" lean-forward="true" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chapter 3/Chap3_sniffer_ip_header_decode.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Chapter 3/Chap3_sniffer_ip_header_decode.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
