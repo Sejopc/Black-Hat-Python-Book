@@ -10,9 +10,10 @@ pcap_file           = "arper3.pcap"
 def get_http_headers(http_payload):
     
     try:
-        # split the HTTP headers off it is HTTP traffic (there will be a \r\n\r\n after the HTTP response headers, right before the payload body)
+        # split the HTTP headers off if it is HTTP traffic (there will be a \r\n\r\n after the HTTP response headers, right before the payload body)
         headers_raw = http_payload[:http_payload.index("\\r\\n\\r\\n")+4]
-        
+        #print(headers_raw)
+        #print("-----")
         #break out the headers into a dictionary called 'headers'
         headers = dict(re.findall(r"(?P<name>.*?): (?P<value>.*?)\\r\\n", headers_raw)) # This was challenging to understand, but now I do, and is simply. The 'r' at the start of the pattern string designates a python "raw" string which                                                                                     # passes through backslashes without change which is very handy for regular expressions. I recommend that you always write pattern strings with the 'r'                                                                                    # just as a habit.
                                                                                     # (?P<name) and (?P<value>) are just Python extensions to re module to match by
@@ -37,7 +38,9 @@ def extract_image(headers, http_payload):
         
             # Grab the image type and image body
             image_type = headers['Content-Type'].split("/")[1]
-            image = http_payload[http_payload.index("\\r\\n\\r\\n")+4:]
+            image = http_payload[http_payload.index("\\r\\n\\r\\n")+8:]
+            print("IMAGE TYPE: " + image_type)
+            print("IMAGE PAYLOAD - FIRST 100 CHARS: " + image[:100])
 
             # If we detect compression, decompress the image
             try:
@@ -87,12 +90,18 @@ def http_assembler(pcap_file):
         for packet in sessions[session]:
             try:
                 if packet[TCP].dport == 80 or packet[TCP].sport == 80:
+                    #print(packet[TCP].payload)
+                    #print("-----")
                     # reassemble the tcp stream
                     http_payload += str(packet[TCP].payload)
+                    #print(http_payload)
+                    #print('---')
             except:
                 pass
 
         headers = get_http_headers(http_payload)
+        #print(headers)
+        #print('----')
 
         if headers is None:
             continue
@@ -102,7 +111,7 @@ def http_assembler(pcap_file):
         if image is not None and image_type is not None:
             # store the image
             file_name = "%s_pic_carver_%d.%s" % (pcap_file, carved_images, image_type)
-            fd = open("%s/%s" % (pictures_directory, file_name), "wb")
+            fd = open("%s/%s" % (pictures_directory, file_name), "w")
             fd.write(image)
             fd.close()
 
@@ -116,7 +125,7 @@ def http_assembler(pcap_file):
             except:
                 pass
         
-    return carved_images, faces_detected 
+    return carved_images, faces_detected
 
 carved_images, faces_detected = http_assembler(pcap_file)
 
